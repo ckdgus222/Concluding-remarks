@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>끝말잇기</title>
+  </head>
+
+  <body>
+    <div><span id="order">1</span></div>
+    <div>제시어:<span id="word"></span></div>
+    <input type="text" />
+    <button>입력</button>
+
+    <!--같은 버튼을 따로 선택해서 사용하고싶으면 class 를 하나더 붙히자-->
+    <!--quertSelector 를 사용할때 자식태그는 > 사용 자손은 띄어쓰기-->
+    <!--잠깐 저장해야할 값이면 변수에 저장하자-->
+    <script>
+      const number = Number(prompt('몇 명이 참가하나요?')); //prompt는 문자열로 반환해주기 때문에 parseInt 사용 10은 10진법 뜻
+      if(number !== NaN){
+      const $button = document.querySelector('button');
+      const $input = document.querySelector('input');
+      const $word = document.querySelector('#word');
+      const $order = document.querySelector('#order');
+      
+
+      let word; //유저가 입력한 제시어
+      let newWord; // 새로 입력한 단어
+      
+      
+
+       const onClickButton = () =>{
+        if(!word || (word[word.length - 1] === newWord [0] && newWord.length === 3)){     //제시어가 비어 있는가?
+           word =  newWord; // 입력한 단어가 제시어가 된다.
+           $word.textContent = word;
+           $input.value =  '';   // input 입력값들은 value로 바꿔준다
+           const order = Number($order.textContent); //현재 순서
+          if(order + 1 > number){
+             $order.textContent = 1;
+          } else{
+             $order.textContent = order + 1;
+           
+          }
+          
+        }
+           else{
+            //올바르지 않다
+            alert('올바르지 않다.')  
+          }
+          $input.value = '';
+          $input.focus();
+        };
+       
+
+       const onInput = (event) =>{
+         newWord = event.target.value; //유저가 입력한 값
+       
+       }
+
+
+      $button.addEventListener('click', onClickButton);
+      $input.addEventListener('input', onInput);
+      }
+    </script>
+  </body>
+</html>
+ 
